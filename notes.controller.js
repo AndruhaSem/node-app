@@ -1,11 +1,10 @@
 const fs = require('fs/promises')
 const path = require('path')
-// const chalk = require('chalk')
 
 const notesPath = path.join(__dirname, 'db.json')
 
 async function addNotes(title){
-    // const notes = require('./db.json')
+
     const notes = await getNotes()
     const note = {
         title,
@@ -20,6 +19,19 @@ async function removeNotes(id){
     const note = notes.filter((e)=>e.id !== id)
     await fs.writeFile(notesPath, JSON.stringify(note))
 }
+ async function editingNotes(id, title){
+    const notes = await getNotes()
+    const note = notes.map((e)=> {
+        if(e.id === id){
+            e.title = title
+
+        }
+        return e
+    })
+
+    await fs.writeFile(notesPath, JSON.stringify(note))
+
+}
 
 async function getNotes(){
     const notes = await fs.readFile(notesPath, {encoding: 'utf-8'})
@@ -31,5 +43,5 @@ async function printNotes(){
 
 }
 module.exports = {
-    addNotes, printNotes,removeNotes
+    addNotes, printNotes,removeNotes, getNotes,editingNotes
 }
