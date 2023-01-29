@@ -39,8 +39,8 @@ app.delete('/:id',async (req,res)=>{
         created: false
     })
 })
-app.put('/:name/:id', async (req,res)=>{
-   await editingNotes(req.params.id ,req.params.name)
+app.put('/:id', async (req,res)=>{
+   await editingNotes(req.params.id, req.body.value)
     res.render('index', {
         title: "Express App",
         notes: await getNotes(),

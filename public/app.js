@@ -27,8 +27,13 @@ async function remove(id){
     })
 }
 async function editingContents(id, newValue){
-    await fetch(`/${newValue}/${id}`, {
+    await fetch(`/${id}`, {
         method:'PUT',
+        body: JSON.stringify({value: newValue}),
+        headers: {
+            'Content-Type': 'application/json'
+        }
+
 
     })
 }
